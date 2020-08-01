@@ -1,0 +1,67 @@
+<mvc:View controllerName="myspace.ProductList.controller.Worklist" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic">
+	<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false">
+		<semantic:titleHeading>
+			<Title text="{i18n>worklistTitle}" level="H2"/>
+		</semantic:titleHeading>
+		<semantic:content>
+			<IconTabBar id="idIconTabBar" select="onQuickFilter">
+				<items>
+					<IconTabFilter showAll="true" count="All" text="Products" key="All"/>
+					<IconTabSeparator/>
+					<IconTabFilter icon="sap-icon://waiver" iconColor="Positive" count="{worklistView>/cheap}" text="Cheap" key="cheap"/>
+					<IconTabFilter icon="sap-icon://loan" iconColor="Critical" count="{worklistView>/moderate}" text="Moderate" key="moderate"/>
+					<IconTabFilter icon="sap-icon://lead" iconColor="Negative" count="{worklistView>/expensive}" text="Expensive" key="expensive"/>
+				</items>
+				<content>
+					<Table id="table" width="auto" items="{ path: '/ProductCollection', sorter: { path: 'ProductID', descending: false } }"
+						noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="true" growingScrollToLoad="true"
+						updateFinished=".onUpdateFinished">
+						<headerToolbar>
+							<OverflowToolbar>
+								<Title id="tableHeader" text="{worklistView>/worklistTableTitle}" level="H3"/>
+								<ToolbarSpacer/>
+								<SearchField id="searchField" tooltip="{i18n>worklistSearchTooltip}" search=".onSearch">
+									<layoutData>
+										<OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow"/>
+									</layoutData>
+								</SearchField>
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column id="nameColumn">
+								<Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
+							</Column>
+							<Column id="supplierNameColumn" demandPopin="true" minScreenWidth="Tablet">
+								<Text text="{i18n>tableSupplierColumnTitle}"/>
+							</Column>
+							<Column id="productCategoryColumn" demandPopin="false" minScreenWidth="Tablet">
+								<Text text="{i18n>tableProductCategoryColumnTitle}"/>
+							</Column>
+							<Column id="unitNumberColumn" hAlign="End">
+								<Text text="{i18n>tableUnitNumberColumnTitle}" id="unitNumberColumnTitle"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Navigation" press=".onPress">
+								<cells>
+									<ObjectIdentifier title="{ProductID}" text="{ProductName}" titleActive="true" titlePress="onShowPopover"/>
+									<Text text="{SupplierName}"/>
+									<!--<Link-->
+									<!--	text="{ProductCategories/ProductCategoryText}"-->
+									<!--	href="{ProductCategories/ProductCategoryText}"-->
+									<!--	target= "_blank" />-->
+									<Text text="{ProductCategory}"/>
+									<ObjectNumber number="{ path: 'UnitPrice', formatter: '.formatter.numberUnit' }" unit="{CurrencyCode}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</IconTabBar>
+		</semantic:content>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
+		</semantic:sendEmailAction>
+	</semantic:SemanticPage>
+</mvc:View>
