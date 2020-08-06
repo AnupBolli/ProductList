@@ -117,6 +117,15 @@ sap.ui.define([
 					oBinding.filter([]);
 				}
 		},
+		
+
+			/**
+			 * Event handler when the add button gets pressed
+			 * @public
+			 */
+		onAdd : function(){
+			this.getRouter().navTo("add");	
+		},
 
 		/**
 		 * Event handler when a table item gets pressed

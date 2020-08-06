@@ -1,0 +1,13 @@
+<mvc:View
+	controllerName="myspace.ProductList.controller.Add"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns="sap.m">
+	<semantic:FullscreenPage
+		id="page"
+		title="New Product"
+		showNavButton="true"
+		navButtonPress="onNavBack">
+		
+	</semantic:FullscreenPage>
+</mvc:View>
